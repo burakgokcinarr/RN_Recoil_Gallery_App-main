@@ -1,20 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { RecoilRoot } from 'recoil';
+import { ActivityIndicator } from 'react-native';
+import { Suspense } from 'react';
+import Router from './src/navigation/Router';
+
+/*
+  Error: A component suspended while responding to synchronous input. This will cause the UI to be replaced with a loading indicator. To fix, updates that suspend should be wrapped with startTransition.
+  Çöcüm: React v18 ile artık Ana bileşene Suspence eklenmelidir.
+*/
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+      <RecoilRoot>
+          <Suspense fallback={<ActivityIndicator size='large' color='red'/>}>
+          <NavigationContainer>
+            <Router/>
+          </NavigationContainer>
+          </Suspense>
+      </RecoilRoot>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
